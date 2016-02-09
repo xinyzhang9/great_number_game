@@ -1,0 +1,32 @@
+<h2>Welcome to the Great Number Game</h2>
+<h4>I am thingking of a number between 1 and 100</h4>
+<h4>You have guessed <%=session[:counter]%> times!</h4>
+<h4>Take a guess</h4>
+
+
+<%if session[:info] == 1%>
+	<div class = 'fail'>
+		<div class = 'info'>Too high!</div>
+	</div>
+<%end%>
+<%if session[:info] == -1%>
+	<div class = 'fail'>
+		<div class = 'info'>Too Low!</div>
+	</div>
+<%end%>
+<%if session[:info] == 0%>
+	<div class = 'success'>
+		<div class = 'info'><%= session[:ans] %> was the number!</div>
+		
+	</div>
+	<form action="/games/reset" method = 'post'>
+		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		<input type="submit" value = 'Play again'>
+	</form>
+<%end%>
+<form action="/games/guess" method = 'post'>
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<input type="text" name = "guess[number]">
+	<input type="submit" value = 'Submit'>
+</form>
+
